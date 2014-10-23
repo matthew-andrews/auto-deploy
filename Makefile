@@ -1,6 +1,5 @@
 app := ft-next-deployment-test
 time := $(shell date +'%Y%m%d-%H%M%S')
-auth_token := $(shell heroku auth:token)
 slug_name := $(app)-$(time)-slug.tgz
 tar := gtar
 
