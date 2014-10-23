@@ -28,12 +28,10 @@ deploy:
 
 	@echo 'Creating slug object at $(slug_name)'
 	${MAKE} build
-	mkdir -p tmp/app
-	rsync -r . tmp/app/ --exclude /tmp --exclude .git
-	(cd tmp; $(tar) czf /tmp/$(slug_name) ./app) && mv /tmp/$(slug_name) slug.tgz
+	mkdir -p tmp
+	$(tar) -cz --transform 's,^\.,./app,S' -f /tmp/$(slug_name) ./ && mv /tmp/$(slug_name) tmp/$(slug_name)
 
-	@echo 'Tell Heroku I am a Node app'
-
+	@echo 'Deploy tar to Heroku'
 	curl -s -X POST \
 		-H 'Content-Type: application/json' \
 		-H 'Accept: application/vnd.heroku+json; version=3' \
@@ -42,7 +40,7 @@ deploy:
 
 	curl -X PUT \
 		-H "Content-Type:" \
-		--data-binary @slug.tgz \
+		--data-binary @tmp/$(slug_name) \
 		`node -e "var slug = require(process.cwd()+'/tmp/slug.json'); process.stdout.write(slug.blob.url);"` > tmp/slug-upload-output
 
 	curl -X POST \
