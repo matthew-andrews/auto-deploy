@@ -16,7 +16,7 @@ _install_npm:
 	npm install
 
 _install_node:
-	curl http://nodejs.org/dist/v0.10.20/node-v0.10.20-linux-x64.tar.gz | $(tar) xz
+	curl http://nodejs.org/dist/v0.10.32/node-v0.10.32-linux-x64.tar.gz | $(tar) xz
 
 clean:
 	git clean -fxd
@@ -36,7 +36,7 @@ deploy:
 	curl -s -X POST \
 		-H 'Content-Type: application/json' \
 		-H 'Accept: application/vnd.heroku+json; version=3' \
-		-d "{\"process_types\":{\"web\":\"node-v0.10.20-linux-x64/bin/node server.js\"}, \"commit\": \"`git rev-parse HEAD`\"}" \
+		-d "{\"process_types\":{\"web\":\"node-v0.10.32-linux-x64/bin/node server.js\"}, \"commit\": \"`git rev-parse HEAD`\"}" \
 		-n https://api.heroku.com/apps/$(app)/slugs > tmp/slug.json
 
 	curl -X PUT \
