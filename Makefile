@@ -28,8 +28,9 @@ deploy:
 
 	@echo 'Creating slug object at $(slug_name)'
 	${MAKE} build
-	mkdir tmp
-	$(tar) czf /tmp/$(slug_name) ./ --exclude=.git && mv /tmp/$(slug_name) slug.tgz
+	mkdir -p tmp/app
+	rsync -r . tmp/app/ --exclude /tmp --exclude .git
+	(cd tmp; $(tar) czf /tmp/$(slug_name) ./app) && mv /tmp/$(slug_name) slug.tgz
 
 	@echo 'Tell Heroku I am a Node app'
 
