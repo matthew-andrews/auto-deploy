@@ -29,7 +29,7 @@ deploy:
 	@echo 'Creating slug object at $(slug_name)'
 	${MAKE} build
 	mkdir tmp
-	$(tar) czf /tmp/$(slug_name) . && mv /tmp/$(slug_name) tmp
+	$(tar) -cz --transform 's,^,/app/,S' -f /tmp/$(slug_name) . && mv /tmp/$(slug_name) tmp
 
 	@echo 'Tell Heroku I am a Node app'
 
