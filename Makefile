@@ -36,7 +36,7 @@ deploy:
 	curl -s -X POST \
 		-H 'Content-Type: application/json' \
 		-H 'Accept: application/vnd.heroku+json; version=3' \
-		-d '{"process_types":{"web":"node-v0.10.20-linux-x64/bin/node server.js"}}' \
+		-d "{\"process_types\":{\"web\":\"node-v0.10.20-linux-x64/bin/node server.js\"}, \"commit\": \"`git rev-parse HEAD`\"}" \
 		-n https://api.heroku.com/apps/$(app)/slugs > tmp/slug.json
 
 	curl -X PUT \
