@@ -12,7 +12,7 @@ build:
 install: _install_node _install_npm
 
 _install_npm:
-	npm install
+	npm install --production
 
 _install_node:
 	curl http://nodejs.org/dist/v0.10.32/node-v0.10.32-linux-x64.tar.gz | $(tar) xz
@@ -47,3 +47,6 @@ deploy:
 		-H "Content-Type: application/json" \
 		-d "{\"slug\":\"`node -e "var slug = require(process.cwd()+'/tmp/slug.json'); process.stdout.write(slug.id);"`\"}" \
 		-n https://api.heroku.com/apps/$(app)/releases
+
+test:
+	./node_modules/.bin/jshint package.json server.js
