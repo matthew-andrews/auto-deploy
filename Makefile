@@ -1,6 +1,6 @@
 app := ft-next-deployment-test
 time := $(shell date +'%Y%m%d-%H%M%S')
-tar := gtar
+tar := tar
 
 run:
 	node server.js
@@ -20,8 +20,6 @@ clean:
 	git clean -fxd
 
 deploy:
-	tar --version
-	gtar --version
 	@echo 'Cleaning and installing'
 	${MAKE} clean
 	${MAKE} install -j 2
