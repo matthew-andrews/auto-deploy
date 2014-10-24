@@ -2,6 +2,6 @@
 ./tmp
 ./.gitignore
 ./.slugignore
-/.jshintrc
+./.jshintrc
 ./Makefile
 .DS_Store
