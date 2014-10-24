@@ -28,8 +28,7 @@ deploy:
 	@echo 'Creating slug object at $(slug_name)'
 	${MAKE} build
 	mkdir tmp
-	mkdir ~/tmp
-	$(tar) -cz --transform 's,^\.,./app,S' -f ~/tmp/$(slug_name) ./ && mv ~/tmp/$(slug_name) tmp/$(slug_name)
+	$(tar) -cz --transform 's,^\.,./app,S' -f /tmp/$(slug_name) ./ && mv /tmp/$(slug_name) tmp/$(slug_name)
 
 	@echo 'Deploy tar to Heroku'
 	curl -s -X POST \
