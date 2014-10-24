@@ -1,0 +1,9 @@
+./.git
+./tmp
+./.gitignore
+./.slugignore
+.jshintrc
+./Makefile
+./package.json
+./npm-shrinkwrap.json
+.DS_Store
