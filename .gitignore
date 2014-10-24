@@ -1,2 +1,4 @@
 /node_modules/
 /public/built.html
+/tmp/
+/node-v0.10.32-linux-x64/
