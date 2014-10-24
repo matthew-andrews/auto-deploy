@@ -2,8 +2,6 @@
 ./tmp
 ./.gitignore
 ./.slugignore
-.jshintrc
+/.jshintrc
 ./Makefile
-./package.json
-./npm-shrinkwrap.json
 .DS_Store
