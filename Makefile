@@ -1,6 +1,6 @@
 app := ft-next-deployment-test
 time := $(shell date +'%Y%m%d-%H%M%S')
-tar := $(shell if hash gtar 2>/dev/null; then echo "gtar"; else echo "tar"; fi)
+tar := $(shell if hash gtar 2>/dev/null; then echo "-cz -s ',^\.,./app,g'"; else echo "-cz --transform 's,^\.,./app,S'"; fi)
 
 run:
 	node server.js
@@ -14,7 +14,7 @@ _install_npm:
 	npm install --production
 
 _install_node:
-	curl http://nodejs.org/dist/v0.10.32/node-v0.10.32-linux-x64.tar.gz | $(tar) xz
+	curl http://nodejs.org/dist/v0.10.32/node-v0.10.32-linux-x64.tar.gz | tar xz
 
 clean:
 	git clean -fxd
@@ -27,7 +27,7 @@ deploy:
 	@echo 'Creating slug object at tmp/slug.tgz'
 	${MAKE} build
 	mkdir tmp
-	$(tar) -cz --transform 's,^\.,./app,S' -f tmp/slug.tgz `find . ! -path './.git*' ! -path . ! -path './tmp*'`
+	tar $(tar) -f tmp/slug.tgz `find . ! -path './.git*' ! -path . ! -path './tmp*'`
 
 	echo 'Deploy tar to Heroku'
 	@curl -s -X POST \
