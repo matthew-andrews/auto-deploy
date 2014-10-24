@@ -34,8 +34,9 @@ deploy:
 	curl -s -X POST \
 		-H 'Content-Type: application/json' \
 		-H 'Accept: application/vnd.heroku+json; version=3' \
+		-H "Authorization: $(HEROKU_AUTH_TOKEN)" \
 		-d "{\"process_types\":{\"web\":\"node-v0.10.32-linux-x64/bin/node server.js\"}, \"commit\": \"`git rev-parse HEAD`\"}" \
-		-n https://api.heroku.com/apps/$(app)/slugs > tmp/slug.json
+		https://api.heroku.com/apps/$(app)/slugs > tmp/slug.json
 
 	curl -X PUT \
 		-H "Content-Type:" \
@@ -44,9 +45,10 @@ deploy:
 
 	curl -X POST \
 		-H "Accept: application/vnd.heroku+json; version=3" \
+		-H "Authorization: $(HEROKU_AUTH_TOKEN)" \
 		-H "Content-Type: application/json" \
 		-d "{\"slug\":\"`node -e "var slug = require(process.cwd()+'/tmp/slug.json'); process.stdout.write(slug.id);"`\"}" \
-		-n https://api.heroku.com/apps/$(app)/releases
+		https://api.heroku.com/apps/$(app)/releases
 
 test:
 	./node_modules/.bin/jshint package.json server.js
