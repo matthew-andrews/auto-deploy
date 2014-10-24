@@ -38,12 +38,12 @@ deploy:
 		-d "{\"process_types\":{\"web\":\"node-v0.10.32-linux-x64/bin/node server.js\"}, \"commit\": \"`git rev-parse HEAD`\"}" \
 		https://api.heroku.com/apps/$(app)/slugs > tmp/slug.json
 
-	curl -X PUT \
+	@curl -X PUT \
 		-H "Content-Type:" \
 		--data-binary @tmp/$(slug_name) \
 		`node -e "var slug = require(process.cwd()+'/tmp/slug.json'); process.stdout.write(slug.blob.url);"` > tmp/slug-upload-output
 
-	curl -X POST \
+	@curl -X POST \
 		-H "Accept: application/vnd.heroku+json; version=3" \
 		-H "Authorization: $(HEROKU_AUTH_TOKEN)" \
 		-H "Content-Type: application/json" \
