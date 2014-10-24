@@ -1,6 +1,6 @@
 app := ft-next-deployment-test
 time := $(shell date +'%Y%m%d-%H%M%S')
-tar := $(shell if hash gtar 2>/dev/null; then echo "-cz -s ',^\.,./app,g'"; else echo "-cz --transform 's,^\.,./app,S'"; fi)
+tar_options := $(shell if hash gtar 2>/dev/null; then echo "-cz -s ',^\.,./app,g'"; else echo "-cz --transform 's,^\.,./app,S'"; fi)
 
 run:
 	node server.js
@@ -8,7 +8,7 @@ run:
 build:
 	echo 'Built' > public/built.html
 	mkdir -p tmp
-	tar $(tar) -f tmp/slug.tgz `find . ! -path './.git*' ! -path . ! -path './tmp*'`
+	tar $(tar_options) -f tmp/slug.tgz `find . ! -path './.git*' ! -path . ! -path './tmp*'`
 
 install: _install_node _install_npm
 
