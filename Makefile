@@ -36,7 +36,7 @@ deploy:
 	@curl -X PUT \
 		-H "Content-Type:" \
 		--data-binary @tmp/slug.tgz \
-		`node -e "process.stdout.write(require(process.cwd()+'/tmp/slug.json').blob.url);"` > tmp/slug-upload-output
+		`node -e "process.stdout.write(require(process.cwd()+'/tmp/slug.json').blob.url);"` > /dev/null
 
 	@curl -X POST \
 		-H "Accept: application/vnd.heroku+json; version=3" \
