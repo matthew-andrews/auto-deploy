@@ -7,6 +7,8 @@ run:
 
 build:
 	echo 'Built' > public/built.html
+	mkdir tmp
+	tar $(tar) -f tmp/slug.tgz `find . ! -path './.git*' ! -path . ! -path './tmp*'`
 
 install: _install_node _install_npm
 
@@ -23,11 +25,7 @@ deploy:
 	@echo 'Cleaning and installing'
 	${MAKE} clean
 	${MAKE} install -j 2
-
-	@echo 'Creating slug object at tmp/slug.tgz'
 	${MAKE} build
-	mkdir tmp
-	tar $(tar) -f tmp/slug.tgz `find . ! -path './.git*' ! -path . ! -path './tmp*'`
 
 	echo 'Deploy tar to Heroku'
 	@curl -s -X POST \
