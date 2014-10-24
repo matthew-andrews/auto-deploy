@@ -22,12 +22,10 @@ clean:
 	git clean -fxd
 
 deploy:
-	@echo 'Cleaning and installing'
 	${MAKE} clean
 	${MAKE} install -j 2
 	${MAKE} build
 
-	echo 'Deploy tar to Heroku'
 	@curl -s -X POST \
 		-H 'Content-Type: application/json' \
 		-H 'Accept: application/vnd.heroku+json; version=3' \
