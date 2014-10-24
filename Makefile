@@ -7,7 +7,7 @@ run:
 
 build:
 	echo 'Built' > public/built.html
-	mkdir tmp
+	mkdir -p tmp
 	tar $(tar) -f tmp/slug.tgz `find . ! -path './.git*' ! -path . ! -path './tmp*'`
 
 install: _install_node _install_npm
