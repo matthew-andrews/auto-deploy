@@ -1,6 +1,6 @@
 app := ft-next-deployment-test
 time := $(shell date +'%Y%m%d-%H%M%S')
-tar := tar
+tar := $(shell if hash gtar 2>/dev/null; then echo "gtar"; else echo "tar"; fi)
 
 run:
 	node server.js
