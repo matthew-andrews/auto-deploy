@@ -20,6 +20,8 @@ clean:
 	git clean -fxd
 
 deploy:
+	tar --version
+	gtar --version
 	@echo 'Cleaning and installing'
 	${MAKE} clean
 	${MAKE} install -j 2
