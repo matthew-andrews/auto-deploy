@@ -1,6 +1,5 @@
 app := ft-next-deployment-test
 time := $(shell date +'%Y%m%d-%H%M%S')
-slug_name := $(app)-$(time)-slug.tgz
 tar := gtar
 
 run:
@@ -25,10 +24,10 @@ deploy:
 	${MAKE} clean
 	${MAKE} install -j 2
 
-	@echo 'Creating slug object at $(slug_name)'
+	@echo 'Creating slug object at tmp/slug.tgz'
 	${MAKE} build
 	mkdir tmp
-	$(tar) -cz --transform 's,^\.,./app,S' -f /tmp/$(slug_name) ./ --exclude .git && mv /tmp/$(slug_name) tmp/$(slug_name)
+	$(tar) -cz --transform 's,^\.,./app,S' -f tmp/slug.tgz `find . ! -path './.git*' ! -path . ! -path './tmp*'`
 
 	echo 'Deploy tar to Heroku'
 	curl -s -X POST \
@@ -40,7 +39,7 @@ deploy:
 
 	curl -X PUT \
 		-H "Content-Type:" \
-		--data-binary @tmp/$(slug_name) \
+		--data-binary @tmp/slug.tgz \
 		`node -e "process.stdout.write(require(process.cwd()+'/tmp/slug.json').blob.url);"` > tmp/slug-upload-output
 
 	curl -X POST \
