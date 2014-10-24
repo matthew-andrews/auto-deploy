@@ -34,8 +34,7 @@ deploy:
 		https://api.heroku.com/apps/$(app)/slugs > tmp/slug.json
 
 	@curl -X PUT \
-		-H "Content-Type:" \
-		--data-binary @tmp/slug.tgz \
+		-H "Content-Type:" --data-binary @tmp/slug.tgz \
 		`node -e "process.stdout.write(require(process.cwd()+'/tmp/slug.json').blob.url);"` > /dev/null
 
 	@curl -X POST \
