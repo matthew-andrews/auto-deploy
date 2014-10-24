@@ -1,6 +1,6 @@
 app := ft-next-deployment-test
 time := $(shell date +'%Y%m%d-%H%M%S')
-tar_options := $(shell if hash gtar 2>/dev/null; then echo "-cz -s ',^\.,./app,g'"; else echo "-cz --transform 's,^\.,./app,S'"; fi)
+tar_options := $(shell if tar --version | grep 'bsdtar' >/dev/null; then echo "-cz -s ',^\.,./app,g'"; else echo "-cz --transform 's,^\.,./app,S'"; fi)
 
 run:
 	node server.js
