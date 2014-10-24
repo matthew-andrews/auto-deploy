@@ -30,19 +30,19 @@ deploy:
 	$(tar) -cz --transform 's,^\.,./app,S' -f tmp/slug.tgz `find . ! -path './.git*' ! -path . ! -path './tmp*'`
 
 	echo 'Deploy tar to Heroku'
-	curl -s -X POST \
+	@curl -s -X POST \
 		-H 'Content-Type: application/json' \
 		-H 'Accept: application/vnd.heroku+json; version=3' \
 		-H "Authorization: $(HEROKU_AUTH_TOKEN)" \
 		-d "{\"process_types\":{\"web\":\"node-v0.10.32-linux-x64/bin/node server.js\"}, \"commit\": \"`git rev-parse HEAD`\"}" \
 		https://api.heroku.com/apps/$(app)/slugs > tmp/slug.json
 
-	curl -X PUT \
+	@curl -X PUT \
 		-H "Content-Type:" \
 		--data-binary @tmp/slug.tgz \
 		`node -e "process.stdout.write(require(process.cwd()+'/tmp/slug.json').blob.url);"` > tmp/slug-upload-output
 
-	curl -X POST \
+	@curl -X POST \
 		-H "Accept: application/vnd.heroku+json; version=3" \
 		-H "Authorization: $(HEROKU_AUTH_TOKEN)" \
 		-H "Content-Type: application/json" \
