@@ -28,9 +28,9 @@ deploy:
 	@echo 'Creating slug object at $(slug_name)'
 	${MAKE} build
 	mkdir tmp
-	$(tar) -cz --transform 's,^\.,./app,S' -f /tmp/$(slug_name) ./ && mv /tmp/$(slug_name) tmp/$(slug_name)
+	$(tar) -cz --transform 's,^\.,./app,S' -f /tmp/$(slug_name) ./ --exclude .git && mv /tmp/$(slug_name) tmp/$(slug_name)
 
-	@echo 'Deploy tar to Heroku'
+	echo 'Deploy tar to Heroku'
 	curl -s -X POST \
 		-H 'Content-Type: application/json' \
 		-H 'Accept: application/vnd.heroku+json; version=3' \
@@ -38,16 +38,16 @@ deploy:
 		-d "{\"process_types\":{\"web\":\"node-v0.10.32-linux-x64/bin/node server.js\"}, \"commit\": \"`git rev-parse HEAD`\"}" \
 		https://api.heroku.com/apps/$(app)/slugs > tmp/slug.json
 
-	@curl -X PUT \
+	curl -X PUT \
 		-H "Content-Type:" \
 		--data-binary @tmp/$(slug_name) \
-		`node -e "var slug = require(process.cwd()+'/tmp/slug.json'); process.stdout.write(slug.blob.url);"` > tmp/slug-upload-output
+		`node -e "process.stdout.write(require(process.cwd()+'/tmp/slug.json').blob.url);"` > tmp/slug-upload-output
 
-	@curl -X POST \
+	curl -X POST \
 		-H "Accept: application/vnd.heroku+json; version=3" \
 		-H "Authorization: $(HEROKU_AUTH_TOKEN)" \
 		-H "Content-Type: application/json" \
-		-d "{\"slug\":\"`node -e "var slug = require(process.cwd()+'/tmp/slug.json'); process.stdout.write(slug.id);"`\"}" \
+		-d "{\"slug\":\"`node -e "process.stdout.write(require(process.cwd()+'/tmp/slug.json').id);"`\"}" \
 		https://api.heroku.com/apps/$(app)/releases
 
 test:
