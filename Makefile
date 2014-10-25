@@ -4,9 +4,15 @@ run:
 	node server.js
 
 deploy:
-	# Clean+install dependencies
-	git clean -fxd
-	npm install
+	if test -z "$SKIP_CLEAN_AND_INSTALL"
+		# Clean+install dependencies
+		git clean -fxd
+		npm install
+	endif
+
+	$(MAKE) deploy-without-clean-and-install
+
+deploy-without-clean-and-install:
 
 	# Build steps
 	echo 'Built' > public/built.html
