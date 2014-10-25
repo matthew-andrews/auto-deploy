@@ -1,7 +1,8 @@
 {
   "dependencies": {
     "express": "^4.9.8",
-    "haikro": "^1.0.1"
+    "forever": "^0.11.1",
+    "haikro": "^1.1.0"
   },
   "scripts": {
     "test": "make test"

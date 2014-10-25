@@ -18,8 +18,7 @@ deploy:
 	@./node_modules/.bin/haikro build deploy \
 		--app $(app) \
 		--token $(HEROKU_AUTH_TOKEN) \
-		--commit `git rev-parse HEAD` \
-		--entry "server.js"
+		--commit `git rev-parse HEAD`
 
 test:
 	./node_modules/.bin/jshint package.json server.js
