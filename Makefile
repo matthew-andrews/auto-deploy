@@ -15,7 +15,7 @@ deploy:
 	npm prune --production
 
 	# Package+deploy
-	@haikro build deploy \
+	@./node_modules/.bin/haikro build deploy \
 		--app $(app) \
 		--token $(HEROKU_AUTH_TOKEN) \
 		--commit `git rev-parse HEAD`
