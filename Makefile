@@ -6,11 +6,13 @@ run:
 deploy:
 	# Clean+install dependencies
 	git clean -fxd
-	npm install --production
-	npm install haikro
+	npm install
 
 	# Build steps
 	echo 'Built' > public/built.html
+
+	# Pre-deploy clean
+	npm prune --production
 
 	# Package+deploy
 	@./node_modules/.bin/haikro build deploy \
