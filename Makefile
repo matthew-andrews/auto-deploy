@@ -4,11 +4,9 @@ run:
 	node server.js
 
 deploy:
-	if test -z "$SKIP_CLEAN_AND_INSTALL"
-		# Clean+install dependencies
-		git clean -fxd
-		npm install
-	endif
+	# Clean+install dependencies
+	git clean -fxd
+	npm install
 
 	$(MAKE) deploy-without-clean-and-install
 
