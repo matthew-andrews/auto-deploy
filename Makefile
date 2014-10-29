@@ -21,7 +21,8 @@ deploy-without-clean-and-install:
 	@./node_modules/.bin/haikro build deploy \
 		--app $(app) \
 		--token $(HEROKU_AUTH_TOKEN) \
-		--commit `git rev-parse HEAD`
+		--commit `git rev-parse HEAD` \
+		--verbose
 
 test:
 	./node_modules/.bin/jshint package.json server.js
