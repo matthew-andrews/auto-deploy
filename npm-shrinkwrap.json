@@ -1033,9 +1033,9 @@
       }
     },
     "haikro": {
-      "version": "1.2.1",
-      "from": "haikro@1.2.1",
-      "resolved": "https://registry.npmjs.org/haikro/-/haikro-1.2.1.tgz",
+      "version": "1.1.6",
+      "from": "haikro@1.1.6",
+      "resolved": "https://registry.npmjs.org/haikro/-/haikro-1.1.6.tgz",
       "dependencies": {
         "denodeify": {
           "version": "1.1.2",
