@@ -4,4 +4,14 @@ language: node_js
 node_js:
 - '0.10'
 after_success:
-- test $TRAVIS_PULL_REQUEST == "false" && test $TRAVIS_BRANCH == "master" && make deploy-without-clean-and-install
+- test $TRAVIS_PULL_REQUEST == "false" && test $TRAVIS_BRANCH == "master" && make
+  deploy-without-clean-and-install
+deploy:
+  provider: releases
+  api_key:
+    secure: cwCG9DAi5236AbMy2LJSpSBDD8jq5LwscNFusIKc/q8stsfiT17I/KSt4nyxq2QLODpifgkkI9XLOKvZ2MVoYWKY1tYUib+6nU/Vv8oXkYrZxtUGcp3JOa8L9hsIQIijDmgVpmrJAFqWNUEoeWmcmA2LL2bWGGLQRSw5m1d6UHc=
+  file: tmp/slug.tgz
+  on:
+    repo: matthew-andrews/auto-deploy
+    tags: true
+    all_branches: true
